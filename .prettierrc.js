@@ -1,0 +1,21 @@
+module.exports = {
+  bracketSpacing: true,
+  semi: true,
+  singleQuote: true,
+  printWidth: 100,
+  tabWidth: 2,
+  trailingComma: "es5",
+  jsxSingleQuote: true,
+  // plugins: ["@ianvs/prettier-plugin-sort-imports"],
+  // importOrder: [
+  //   "^(next/(.*)$)|^(next$)",
+  //   "^(react/(.*)$)|^(react$)",
+  //   "^(urql/(.*)$)|^(urql$)",
+  //   "^@/src/(.*)$",
+  //   "^@/components/(.*)$",
+  //   "^[./]",
+  //   "^types$",
+  // ],
+  // importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderTypeScriptVersion: "5.2.2",
+};
