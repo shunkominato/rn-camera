@@ -2,10 +2,14 @@ import { Camera, CameraType } from 'expo-camera';
 import { Button as NBButton } from 'native-base';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GestureHandlerRootView, PinchGestureHandler } from 'react-native-gesture-handler';
+
+import { usePinchGesture } from './usePinchGesture';
 
 export default function App() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const { pinchRef, zoom, onPinchGestureEvent } = usePinchGesture();
 
   if (!permission) {
     // Camera permissions are still loading
@@ -38,14 +42,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-            <NBButton onPress={createTwoButtonAlert}>Click Me</NBButton>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <PinchGestureHandler ref={pinchRef} onGestureEvent={onPinchGestureEvent}>
+          <Camera style={styles.camera} type={type} zoom={zoom}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+                <Text style={styles.text}>Flip Camera</Text>
+                <NBButton onPress={createTwoButtonAlert}>Click Me</NBButton>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        </PinchGestureHandler>
+      </GestureHandlerRootView>
     </View>
   );
 }
