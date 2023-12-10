@@ -1,10 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 // import snakecaseKeys from 'snakecase-keys';
-export type aa = any;
 
 class ApiClient {
   constructor() {
-    axios.defaults.baseURL = 'http://127.0.0.1:81';
+    axios.defaults.baseURL = 'http://192.168.1.20:81';
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   }
 
@@ -22,7 +21,11 @@ class ApiClient {
     this._setToken();
 
     // return axios.post(uri, body ? snakecaseKeys(body, { deep: true }) : body);
-    return axios.post(uri, body);
+    return axios.post(uri, body, {
+      headers: {
+        'Transfer-Encoding': 'chunked',
+      },
+    });
   }
 }
 
